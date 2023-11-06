@@ -1,8 +1,10 @@
 package taller;
-
+/**
+ * This class contain all logic of vacation
+ */
 public class Vacation {
 /**
- * Cost to Paris.
+ * Cost to PARIS.
  */
  private static final int PARIS_COST = 500;
  /**
@@ -14,23 +16,23 @@ public class Vacation {
   */
  private static final int BASE_COST = 1000;
  /**
-  * Cost to Paris.
+  *DISCOUNT_10_PERCENT.
   */
  private static final double GROUP_DISCOUNT_10_PERCENT = 0.90;
  /**
-  * Cost to Paris.
+  * DISCOUNT_10_PERCENT.
   */
  private static final double GROUP_DISCOUNT_20_PERCENT = 0.80;
  /**
-  * Cost to Paris.
+  * PENALTY_FEE.
   */
  private static final int PENALTY_FEE = 200;
  /**
-  * Cost to Paris.
+  * PROMOTION_DISCOUNT.
   */
  private static final int PROMOTION_DISCOUNT = 200;
  /**
-  * Cost to Paris.
+  * MAX_GROUP_SIZE.
   */
  private static final int MAX_GROUP_SIZE = 80;
  /**
@@ -38,10 +40,13 @@ public class Vacation {
   *
   */
   private String destination;
-  /** Num of travelers. */
+  /** Number of travelers. */
   private int travelers;
   /** Number of days of vacation. */
   private int daysOfVacation;
+  private boolean allInclusive;
+  private boolean adventureActivities;
+  private boolean spaAndWellness;
   /**
   * Constructor for the Vacation class.
   *
@@ -53,7 +58,21 @@ public Vacation(final String destinationTr, final int numTrav, final int days) {
   this.destination = destinationTr;
   this.travelers = numTrav;
   this.daysOfVacation = days;
+  this.allInclusive = false;
+  this.adventureActivities = false;
+  this.spaAndWellness = false;
  }
+public void addAllInclusive() {
+    allInclusive = true;
+}
+
+public void addAdventureActivities() {
+    adventureActivities = true;
+}
+
+public void addSpaAndWellness() {
+    spaAndWellness = true;
+}
 /**
  * @return the destination to traveling.
 */
@@ -66,6 +85,11 @@ public Vacation(final String destinationTr, final int numTrav, final int days) {
 public void setDestination(final String destinationTr) {
  this.destination = destinationTr;
 }
+/**
+ * days.
+ *
+ *@return the days of vacation
+ */
 public int getDaysOfVacation() {
  return daysOfVacation;
 }
@@ -75,20 +99,29 @@ public int getDaysOfVacation() {
 public void setDaysOfVacation(final int days) {
  this.daysOfVacation = days;
  }
+/**
+ *
+ * @return the travelers
+ */
  public int getTravelers() {
   return travelers;
  }
-public void setTravelers(int travelers) {
- this.travelers = travelers;
+ /**
+  *Travelers to travel.
+  *
+  * @param travelerss
+  */
+public void setTravelers(final int travelerss) {
+ this.travelers = travelerss;
 }
 /**
- * @return the cost to travel to Pais.
+ * @return the cost to travel to PARIS.
 */
  public static int getParisCost() {
   return PARIS_COST;
  }
  /**
-  * @return the cost to travel to New Yrok.
+  * @return the cost to travel to New York.
  */
  public static int getNewYorkCost() {
   return NEW_YORK_COST;
@@ -99,52 +132,90 @@ public void setTravelers(int travelers) {
  public static int getBaseCost() {
   return BASE_COST;
  }
+ /**
+  *
+  * @return group discount
+  */
  public static double getGroupDiscount10Percent() {
   return GROUP_DISCOUNT_10_PERCENT;
  }
+ /**
+  *
+  * @return GROUP_DISCOUNT_20_PERCENT
+  */
  public static double getGroupDiscount20Percent() {
   return GROUP_DISCOUNT_20_PERCENT;
  }
+ /**
+  *
+  * @return PENALTY_FEE
+  */
  public static int getPenaltyFee() {
   return PENALTY_FEE;
  }
+ /**
+  *
+  * @return PROMOTION_DISCOUNT
+  */
  public static int getPromotionDiscount() {
   return PROMOTION_DISCOUNT;
  }
+ /**
+  *
+  * @return MAX_GROUP_SIZE
+  */
  public static int getMaxGroupSize() {
  return MAX_GROUP_SIZE;
  }
+ /**
+  *
+  */
 @Override
  public String toString() {
-  return "Vacation [destination=" + destination + ", travalers=" + travelers + ", days=" + daysOfVacation
-+ "]";
-	}
+    final String one = "Vacation [destination=" + destination + ", travalers=";
+    final String two = travelers + ", days=" + daysOfVacation + "]";
+  return  one + two;
+}
+/**
+ *
+ * @return the total cost.
+ */
 public double calculateTotalCost() {
-    	if (isValidInput()) {
+         if (isValidInput()) {
             double totalCost = BASE_COST;
-	        if (destination.equalsIgnoreCase("Paris")) {
-	            totalCost += PARIS_COST;
-	        } else if (destination.equalsIgnoreCase("New York City")) {
-	            totalCost += NEW_YORK_COST;
-	        }
-	        if (travelers > 4 && travelers < 10) {
-	            totalCost *= GROUP_DISCOUNT_10_PERCENT;
-	        } else if (travelers > 10) {
-	            totalCost *= GROUP_DISCOUNT_20_PERCENT;
-	        }
-	        totalCost *= daysOfVacation;
-	        if (daysOfVacation < 7) {
-	            totalCost += PENALTY_FEE;
-	        }
-	        if (daysOfVacation > 30 || daysOfVacation == 2) {
-	            totalCost -= PROMOTION_DISCOUNT;
-	        }
-	        return totalCost;
-    	} else {
-            return -1;
+            if (destination.equalsIgnoreCase("Paris")) {
+                totalCost += PARIS_COST;
+          } else if (destination.equalsIgnoreCase("New York City")) {
+                totalCost += NEW_YORK_COST;
+        }
+           if (travelers > 4 && travelers < 10) {
+                totalCost *= GROUP_DISCOUNT_10_PERCENT;
+            } else if (travelers > 10) {
+               totalCost *= GROUP_DISCOUNT_20_PERCENT;
+            }
+            totalCost *= daysOfVacation;
+            if (daysOfVacation < 7) {
+               totalCost += PENALTY_FEE;
+            }
+            if (daysOfVacation > 30 || daysOfVacation == 2) {
+               totalCost -= PROMOTION_DISCOUNT;
+            }
+            if (allInclusive) {
+            	totalCost += travelers * 200;
+            }
+            if (adventureActivities) {
+            	totalCost += travelers * 150;
+            }
+            if (spaAndWellness) {
+            	totalCost += travelers * 100;
+            }
+
+            return totalCost;
+            } else {
+             return -1;
         }
     }
  private boolean isValidInput() {
- return (travelers >= 1 && daysOfVacation >= 1 && travelers <= MAX_GROUP_SIZE);
+ return travelers >= 1 && daysOfVacation >= 1 && travelers <= MAX_GROUP_SIZE;
     }
 }
